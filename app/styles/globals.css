@@ -1,0 +1,314 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* Ant Design Styles Start */
+.ant-pagination-item-active {
+  border-color: #3fc060 !important;
+}
+
+li.ant-pagination-item-active a {
+  color: #3fc060 !important;
+}
+
+.ant-menu-item-selected {
+  background-color: #3fc060 !important;
+}
+
+/* Ant Design Styles End */
+#resize {
+  resize: none;
+}
+
+.total-sum-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.total-price {
+  margin-left: auto;
+  font-weight: bold;
+}
+
+#login-button {
+  background-color: #333;
+  height: 60px;
+  color: white !important;
+}
+
+#login-button:hover {
+  background-color: #666;
+}
+
+.call-button {
+  width: 30%;
+  background-color: white;
+  height: 40px;
+  color: rgb(147 197 253 / var(--tw-bg-opacity)) !important;
+  border-radius: 5px;
+}
+
+.call-button:hover {
+  background-color: #f3f3f3;
+}
+
+.disabled-call-button {
+  width: 30%;
+  background-color: #f3f3f3;
+  height: 40px;
+  color: rgb(147 197 253 / var(--tw-bg-opacity)) !important;
+  border-radius: 5px;
+  cursor: default;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 30px;
+}
+
+.button {
+  margin-right: 20px;
+  background-color: rgb(213, 8, 8);
+  border-color: rgb(213, 8, 8) !important;
+  color: white !important;
+}
+
+.button2 {
+  background-color: #3fc060 !important;
+  border-color: #3fc060 !important;
+  color: white !important;
+}
+
+.button:hover {
+  color: white !important;
+}
+
+.button2:hover {
+  color: white !important;
+}
+
+/* Custom Tailwind Styles Start */
+.hover-logout-modal:hover {
+  background-color: #3d3d3d;
+  cursor: pointer;
+}
+
+.order-status {
+  background-color: #f9f9f9;
+  padding: 3px 10px;
+}
+
+.border-1 {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.bg-slight-opaque {
+  background-color: rgb(0, 0, 0, 0.6);
+}
+
+.bg-dark-gray {
+  --tw-bg-opacity: 1;
+  background-color: #666;
+}
+
+.bg-very-dark-gray {
+  --tw-bg-opacity: 1;
+  background-color: #3d3d3d;
+}
+
+.bg-transparent {
+  background: transparent;
+}
+
+.text-bluestrong {
+  color: rgb(3, 170, 170);
+}
+
+.outset:focus {
+  outline: none;
+}
+
+/* Loading Spinner Styles */
+.loading-spinner {
+  background-color: #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.spinner-icon {
+  color: #301934;
+  animation: spin 1s infinite linear;
+  font-size: 3rem; /* Customize the font size as needed */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+input[type="date"]::before {
+  content: attr(placeholder);
+  position: absolute;
+  color: #999999;
+}
+
+input[type="date"] {
+  color: #ffffff;
+}
+
+input[type="date"]:focus,
+input[type="date"]:valid {
+  color: #666666;
+}
+
+input[type="date"]:focus::before,
+input[type="date"]:valid::before {
+  content: "";
+}
+
+/* Middle Line */
+.tracking-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.middleline-container {
+  width: 80%;
+  height: 20px;
+  padding: 0 0 0 0;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  position: relative;
+}
+
+.circle-flex {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  background: #ccc;
+  border-radius: 100%;
+  border: 5px solid #f3f3f3b2;
+}
+
+.active-status {
+  width: 20px;
+  height: 20px;
+  background: #003;
+  border-radius: 100%;
+  border: 5px solid lightblue;
+}
+
+.middle-line-flex {
+  width: 100%;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
+
+.active-middle-line {
+  width: 25%;
+  height: 1.5px;
+  background: #003;
+}
+
+.middle-line {
+  width: 25%;
+  height: 1.5px;
+  background: #e1dfdf;
+}
+
+.new {
+  position: relative;
+  left: 1.5%;
+}
+
+.in-prep {
+  position: relative;
+  left: 3%;
+}
+
+.ready {
+  position: relative;
+  left: 1%;
+}
+
+.pickup {
+  position: relative;
+  /* left: 3%; */
+}
+
+.completed {
+  position: relative;
+  left: 0.5%;
+}
+
+/* Custom Tailwinnd Styles End */
+
+/* input  autocomplete styles */
+.autofill:-webkit-autofill,
+.autofill:-webkit-autofill:hover,
+.autofill:-webkit-autofill:focus
+ {
+  /* background-color: white !important; */
+  transition: background-color 5000s ease-in-out 0s ;
+}
+
+/* Kanban Styles */
+.kanban-card {
+  width: 25%;
+  border-radius: 0.3rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.kanban-image {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.border-t-1 {
+  border-top-width: 1px;
+}
+
+.h-wsq {
+
+}

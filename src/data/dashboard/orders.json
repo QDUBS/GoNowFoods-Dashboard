@@ -1,0 +1,26 @@
+[
+  {
+    "id": "F8762",
+    "price": 33.99,
+    "user_id": "jwajxkojnokwxlmkakj",
+    "date": "2023-11-17 10:15:02.596979",
+    "deliveryAddress": "7801 Tanglewood Drive Elkton, MD 21921",
+    "status": "Accepted"
+  },
+  {
+    "id": "A9245",
+    "price": 94.35,
+    "user_id": "jwajxkojnokwxlmkakj",
+    "date": "2023-11-17 10:15:02.596979",
+    "deliveryAddress": "81 High Point Dr. Greenwood, SC 29646",
+    "status": "Pending"
+  },
+  {
+    "id": "Y7902",
+    "price": 6.99,
+    "user_id": "jwajxkojnokwxlmkakj",
+    "date": "2023-11-17 10:15:02.596979",
+    "deliveryAddress": "8783 Wakehurst Road Champlin, MN 55316",
+    "status": "Declined"
+  }
+]
