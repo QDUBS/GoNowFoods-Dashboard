@@ -1,13 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
-import { toast } from "react-toastify";
-import { IDishFormInputs } from "../../interfaces/dish";
 import { ICompanyFormInputs } from "../../interfaces/settings";
 import { companyFormSchema } from "../../schemas/settings";
 import LoadingSpinner from "../loading/LoadingSpinner";
@@ -34,10 +33,10 @@ const EditCompanyInformation = ({ onClose }: Props) => {
   });
 
   const { isLoading, mutate } = useMutation({
-    mutationFn: (expense: IDishFormInputs) =>
-      axios.post(`/api/expenses`, expense),
+    mutationFn: (restaurant: ICompanyFormInputs | any) =>
+      axios.post(`/api/restaurant`, restaurant),
     onSuccess: async (data: any) => {
-      toast("Expense added successfully");
+      toast.success("Updated successfully");
       onClose();
     },
   });
@@ -83,6 +82,7 @@ const EditCompanyInformation = ({ onClose }: Props) => {
       delivery_fee,
       min_delivery_time,
       max_delivery_time,
+      fileName,
     } = data;
     const formData = new FormData();
 
@@ -98,19 +98,11 @@ const EditCompanyInformation = ({ onClose }: Props) => {
       min_delivery_time: min_delivery_time,
       max_delivery_time: max_delivery_time,
       isActive: true,
-      filename: dish.image,
+      filename: fileName,
     };
-
-    // (user_id = request.user_id),
-    // (name = request.name),
-    // (image = request.image),
-    // (delivery_fee = request.delivery_fee),
-    // (min_delivery_time = request.min_delivery_time),
-    // (max_delivery_time = request.max
 
     formData.append("data", JSON.stringify(newData));
     mutate(formData as any);
-    onClose();
   };
 
   if (isLoading) {

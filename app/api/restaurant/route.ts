@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function PUT(req: NextRequest, res: NextResponse) {
   const session: any = await getServerSession(authOptions);
   const user_id = session?.user?.user?.user?.id;
   const formData = await req.formData();
@@ -11,7 +11,25 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const parsedBody = JSON.parse(dataBody);
 
   try {
-    const restaurant = await axios.put(
+    const profile = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/profiles/${user_id}`
+    );
+    const update_profile = await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/profiles/${profile.data.id}`,
+      {
+        user_id: user_id,
+        first_name: profile.data.first_name,
+        last_name: profile.data.last_name,
+        mobile_number: parsedBody.mobile_number,
+        photo: profile.data.photo,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const update_restaurant = await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/restaurants`,
       {
         user_id: user_id,
@@ -29,19 +47,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       }
     );
 
-    return new NextResponse(JSON.stringify("Created successfully..."));
+    return new NextResponse(JSON.stringify("Updated successfully..."));
   } catch (error) {
     console.error("Error creating restaurant...", error);
 
     return new NextResponse(JSON.stringify({ status: 404 }));
   }
 }
-
-
-  // (user_id = request.user_id),
-  //   (name = request.name),
-  //   (image = request.image),
-  //   (delivery_fee = request.delivery_fee),
-  //   (min_delivery_time = request.min_delivery_time),
-  //   (max_delivery_time = request.max_delivery_time),
-  //   (rating = request.rating);

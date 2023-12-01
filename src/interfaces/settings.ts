@@ -5,6 +5,7 @@ export interface ICompanyFormInputs {
   delivery_fee: number;
   min_delivery_time: number;
   max_delivery_time: number;
+  fileName: string;
 }
 
 export interface IAddressFormInputs {

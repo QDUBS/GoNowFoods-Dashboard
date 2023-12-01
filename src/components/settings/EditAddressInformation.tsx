@@ -1,11 +1,12 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 import { IoClose } from "react-icons/io5";
-import { toast } from "react-toastify";
-import { IDishFormInputs } from "../../interfaces/dish";
+import { IAddressFormInputs } from "../../interfaces/settings";
 import { addressFormSchema } from "../../schemas/settings";
 import LoadingSpinner from "../loading/LoadingSpinner";
 
@@ -14,6 +15,9 @@ interface Props {
 }
 
 const EditAddressInformation = ({ onClose }: Props) => {
+  const { data }: any = useSession();
+  const [user, setUser] = useState<any>();
+  const id = data?.user?.user?.user?.id;
   const [uploadedFile, setUploadedFile] = useState(null);
 
   const {
@@ -25,34 +29,47 @@ const EditAddressInformation = ({ onClose }: Props) => {
     resolver: yupResolver(addressFormSchema),
   });
 
+  const query = useQuery({
+    queryKey: ["get-user"],
+    queryFn: () => axios.get(`/api/user?id=${id}`),
+    enabled: !!id,
+    onSuccess: (data) => {
+      if (data.data) {
+        setUser(data.data);
+      }
+    },
+  });
+
   const { isLoading, mutate } = useMutation({
-    mutationFn: (expense: IDishFormInputs) =>
-      axios.post(`/api/expenses`, expense),
+    mutationFn: (address: IAddressFormInputs | any) =>
+      axios.post(`/api/address`, address),
     onSuccess: async (data: any) => {
-      toast("Expense added successfully");
+      toast.success("Address updated successfully");
       onClose();
     },
   });
 
-  const onSubmit = async (data: IDishFormInputs | any) => {
-    const { name, image, description, price } = data;
+  const onSubmit = async (data: IAddressFormInputs | any) => {
+    const { house_no, street1, street2, city, state, country, postal_code } =
+      data;
     const formData = new FormData();
 
-    if (uploadedFile) {
-      formData.append("image", uploadedFile);
-    }
-
     let newData: any = {
-      name,
-      image,
-      description,
-      price,
-      filename: "",
+      restaurant_id: "",
+      house_no: house_no,
+      street1: street1,
+      street2: street2,
+      city: city,
+      state: state,
+      country: country,
+      postal_code: postal_code,
+      latitude: "",
+      longitude: "",
+      type: "WORK",
     };
 
     formData.append("data", JSON.stringify(newData));
     mutate(formData as any);
-    onClose();
   };
 
   if (isLoading) {
@@ -139,7 +156,9 @@ const EditAddressInformation = ({ onClose }: Props) => {
                 </div>
 
                 <div className="flex flex-col border-gray rounded-md px-2 py-2">
-                  <p className="text-gray-400 text-sm font-normal">Postal Code</p>
+                  <p className="text-gray-400 text-sm font-normal">
+                    Postal Code
+                  </p>
                   <input
                     type="text"
                     placeholder=""
